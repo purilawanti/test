@@ -1,0 +1,25 @@
+local tower = script.Parent
+local mobs = workspace.Mobs
+
+local function FindNearestMob()
+	local maxdistance = 50
+	local nearMob = nil
+
+	for i, target in ipairs(mobs:GetChildren()) do
+		local distance = (target.HumanoidRootPart.Position - tower.Position).Magnitude
+		if distance < maxdistance  then
+			nearMob = target
+			maxdistance = distance
+		end
+	end
+	return nearMob
+end
+
+while true do
+	local target = FindNearestMob()
+	if target then
+		target.Humanoid:TakeDamage(20)
+	end
+	wait(1)
+end
+
